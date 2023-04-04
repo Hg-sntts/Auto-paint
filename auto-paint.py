@@ -21,7 +21,7 @@ if isinstance(img, pil.Image.Image):
     print('Cor do pixel: ', cor_pixel)
     print('Tamanho da imagem: ', y_pixel, x_pixel)
 
-    for xpixel in range(0, x_pixel, 3):
-        for ypixel in range(0, y_pixel, 3):
-            if (img.getpixel((xpixel, ypixel)) < (50,50,50)):
-                pyautogui.click(xpixel+x, ypixel+y)
+    for xpixel in range(0, x_pixel, 4):
+        for ypixel in range(0, y_pixel, 4):
+            if (img.getpixel((xpixel, ypixel)) < (111,72,67)):
+                pyautogui.click(x+xpixel, y+ypixel)
