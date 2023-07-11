@@ -4,6 +4,9 @@ from time import sleep
 
 sleep(3)
 
+pos1 = 0
+pos2 = 0
+
 img = pil.ImageGrab.grabclipboard()
 cor_desejada = (0,0,0) #preto
 
@@ -25,12 +28,13 @@ if isinstance(img, pil.Image.Image):
     print('Cor do pixel: ', cor_pixel)
     print('Tamanho da imagem: ', x_pixel, y_pixel)
 
-    if(x_pixel >= 1366):
+    '''if(x_pixel >= 1366):
         x_pixel-= 400
     if(y_pixel >= 768):
-        y_pixel-= 300
+        y_pixel-= 300'''
+    
 
-    for xpixel in range(0, x_pixel, 4):
-        for ypixel in range(0, y_pixel, 4):
-            if (img.getpixel((xpixel, ypixel)) < (111,72,67)):
+    for xpixel in range(0, 500, 4):
+        for ypixel in range(0, 500, 4):
+            if (img.getpixel((xpixel, ypixel)) < (111,72,67)): #Se o pixel for branco
                 pyautogui.click(xpixel+x, ypixel+y)
