@@ -7,6 +7,10 @@ sleep(3)
 img = pil.ImageGrab.grabclipboard()
 cor_desejada = (0,0,0) #preto
 
+tamanho_tela = pyautogui.size()
+largura = tamanho_tela.width
+altura = tamanho_tela.height
+
 x,y = pyautogui.position()
 
 if isinstance(img, pil.Image.Image):
@@ -19,9 +23,14 @@ if isinstance(img, pil.Image.Image):
     cor_pixel = img.getpixel((x_pixel, y_pixel))
     print(type(cor_pixel))
     print('Cor do pixel: ', cor_pixel)
-    print('Tamanho da imagem: ', y_pixel, x_pixel)
+    print('Tamanho da imagem: ', x_pixel, y_pixel)
+
+    if(x_pixel >= 1366):
+        x_pixel-= 400
+    if(y_pixel >= 768):
+        y_pixel-= 300
 
     for xpixel in range(0, x_pixel, 4):
         for ypixel in range(0, y_pixel, 4):
             if (img.getpixel((xpixel, ypixel)) < (111,72,67)):
-                pyautogui.click(x+xpixel, y+ypixel)
+                pyautogui.click(xpixel+x, ypixel+y)
