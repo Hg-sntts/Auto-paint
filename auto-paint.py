@@ -1,28 +1,31 @@
 import pyautogui
 import PIL as pil
-from time import sleep
-from os import system
-
-img = pil.ImageGrab.grabclipboard() #imagem na área de transferencia
-x,y = pyautogui.position() #localização do mouse
+import keyboard
 
 def desenhar():
-    x_pixel = img.size[0]-2
-    y_pixel = img.size[1]-2
+    x,y = pyautogui.position()
 
-    print('Tamanho da imagem: ', x_pixel, y_pixel)
+    # Tamanho da imagem, em x e y
+    x_pixel = img.size[0]
+    y_pixel = img.size[1]
+
+    print(f'Tamanho da imagem:  {x_pixel} por {y_pixel}')
     
     for xpixel in range(0, x_pixel, 4):
         for ypixel in range(0, y_pixel, 4):
+            if keyboard.is_pressed('Esc'):
+                break
             if (img.getpixel((xpixel, ypixel)) < (111,72,67)): #Se o pixel for preto
                 pyautogui.click(xpixel+x, ypixel+y)
 
-resp = int(input('Oque deseja fazer?\n\n[1] Desenhar\n[2] Sair\n\n'))
-if (resp == 1):
-    if isinstance(img, pil.Image.Image):
-        print('imagem copiada')
-        system.os('start mspaint')
-        sleep(2)
-        desenhar()
-    else:
-        print('Imagem não copiada! Encerrando programa...')
+#imagem na área de transferencia
+img = pil.ImageGrab.grabclipboard()
+if isinstance(img, pil.Image.Image) == False:
+        print("Nenhuma imagem na área de transferencia. Saindo...")
+else:
+    img = img.resize((1280, 720))
+    print("imagem encontrada! pronto para o desenho.")
+    while (True):
+        if keyboard.is_pressed('/'):
+            desenhar()
+            break
